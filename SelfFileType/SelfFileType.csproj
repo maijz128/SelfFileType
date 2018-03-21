@@ -89,7 +89,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="browser.ico" />
     <Content Include="file.ico" />
     <Content Include="icon\browser.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

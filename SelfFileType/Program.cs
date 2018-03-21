@@ -23,7 +23,8 @@ namespace SelfFileType
             {
                 Console.Out.WriteLine(args.Length);
 
-                new ClassLib.LogUtil("log.txt").WriteLine(args);
+                var logFile = AppDomain.CurrentDomain.BaseDirectory + "/log.txt";
+                new ClassLib.LogUtil(logFile).WriteLine(args);
 
                 var fileTypeManager = new SelfFileType.src.FileTypeManager();
                 foreach (var item in args)
