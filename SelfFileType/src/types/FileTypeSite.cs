@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SelfFileType.ClassLib;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -43,6 +44,7 @@ namespace SelfFileType.src.types
         {
             if (File.Exists(file))
             {
+                bool hasContent = false;
                 string aLine;
                 StreamReader strReader = new StreamReader(file);
                 while (true)
@@ -51,8 +53,10 @@ namespace SelfFileType.src.types
                     if (aLine != null)
                     {
                         Console.Out.WriteLine(aLine);
+                        hasContent = true;
+
                         //调用系统默认的浏览器   
-                        System.Diagnostics.Process.Start( aLine);
+                        System.Diagnostics.Process.Start(aLine);
                     }
                     else
                     {
@@ -60,6 +64,28 @@ namespace SelfFileType.src.types
                     }
                 }
 
+                // 没有内容就打开编辑
+                if (!hasContent)
+                {
+                    EditFile(file);
+                }
+
+            }
+        }
+
+
+        void EditFile(string file)
+        {
+            //var fileTypeRegInfo = FileTypeRegister.GetFileTypeRegInfo(".txt");
+            //if (fileTypeRegInfo != null)
+            //{
+            //    var exePath = fileTypeRegInfo.ExePath;
+            //    
+            //}
+            var process = Process.Start("notepad++.exe", file);
+            if (process == null)
+            {
+                System.Diagnostics.Process.Start("NOTEPAD.EXE", file);
             }
         }
     }
