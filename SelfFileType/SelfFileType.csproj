@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassLib\CmdHelper.cs" />
     <Compile Include="ClassLib\FileTypeRegInfo.cs" />
     <Compile Include="ClassLib\FileTypeRegister.cs" />
     <Compile Include="ClassLib\LogUtil.cs" />

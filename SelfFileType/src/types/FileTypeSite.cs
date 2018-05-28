@@ -40,37 +40,44 @@ namespace SelfFileType.src.types
             return Path.GetExtension(file) == ExtensionName();
         }
 
-        public void Run(string file)
+        public string Run(string file)
         {
+            StringBuilder outputLog = new StringBuilder();
             if (File.Exists(file))
             {
                 bool hasContent = false;
                 string aLine;
                 StreamReader strReader = new StreamReader(file);
-                while (true)
+                do
                 {
                     aLine = strReader.ReadLine();
-                    if (aLine != null)
+                    if (!string.IsNullOrWhiteSpace(aLine))
                     {
                         Console.Out.WriteLine(aLine);
                         hasContent = true;
 
-                        //调用系统默认的浏览器   
-                        System.Diagnostics.Process.Start(aLine);
+                        if (isSite(aLine))
+                        {
+                            //调用系统默认的浏览器   
+                            System.Diagnostics.Process.Start(aLine);
+                            outputLog.AppendLine("open " + aLine);
+                        }
+                        else
+                        {
+                            string output;
+                            CmdHelper.RunCmd(aLine, out output);
+                            outputLog.AppendLine(output);
+                        }
                     }
-                    else
-                    {
-                        break;
-                    }
-                }
+                } while (aLine != null);
 
                 // 没有内容就打开编辑
                 if (!hasContent)
                 {
                     EditFile(file);
                 }
-
             }
+            return outputLog.ToString();
         }
 
 
@@ -87,6 +94,12 @@ namespace SelfFileType.src.types
             {
                 System.Diagnostics.Process.Start("NOTEPAD.EXE", file);
             }
+        }
+
+        bool isSite(string line)
+        {
+            string line_format = line.Trim().ToLower();
+            return line_format.StartsWith("http://") || line_format.StartsWith("https://");
         }
     }
 }

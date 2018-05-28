@@ -16,7 +16,7 @@ namespace SelfFileType.src.types
 
         bool Matching(string file);
 
-        void Run(string file);
+        string Run(string file);
 
     }
 }
