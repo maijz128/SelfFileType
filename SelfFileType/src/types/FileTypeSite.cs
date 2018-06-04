@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SelfFileType.src.types
@@ -62,6 +63,10 @@ namespace SelfFileType.src.types
                             System.Diagnostics.Process.Start(aLine);
                             outputLog.AppendLine("open " + aLine);
                         }
+                        else if (isDiskPath(aLine))
+                        {
+                            System.Diagnostics.Process.Start(aLine);
+                        }
                         else
                         {
                             string output;
@@ -100,6 +105,13 @@ namespace SelfFileType.src.types
         {
             string line_format = line.Trim().ToLower();
             return line_format.StartsWith("http://") || line_format.StartsWith("https://");
+        }
+
+        bool isDiskPath(string line)
+        {
+            var pattern = @"[a-zA-Z]:(\\([0-9a-zA-Z]+))+|(\/([0-9a-zA-Z]+))+";
+            var result = Regex.Match(line, pattern);
+            return result.Success;
         }
     }
 }
