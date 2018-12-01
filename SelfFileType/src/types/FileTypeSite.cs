@@ -94,10 +94,10 @@ namespace SelfFileType.src.types
             //    var exePath = fileTypeRegInfo.ExePath;
             //    
             //}
-            var process = Process.Start("notepad++.exe", file);
+            var process = Process.Start("notepad++.exe", "\"" + file + "\"");
             if (process == null)
             {
-                System.Diagnostics.Process.Start("NOTEPAD.EXE", file);
+                System.Diagnostics.Process.Start("NOTEPAD.EXE", "\"" + file + "\"");
             }
         }
 
