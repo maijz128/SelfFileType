@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SelfFileType.src.types
 {
@@ -75,11 +76,15 @@ namespace SelfFileType.src.types
                         }
                     }
                 } while (aLine != null);
+                strReader.Close();
 
                 // 没有内容就打开编辑
                 if (!hasContent)
                 {
-                    EditFile(file);
+                    if (!GitHub(file))
+                    {
+                        EditFile(file);
+                    }
                 }
             }
             return outputLog.ToString();
@@ -98,6 +103,42 @@ namespace SelfFileType.src.types
             if (process == null)
             {
                 System.Diagnostics.Process.Start("NOTEPAD.EXE", "\"" + file + "\"");
+            }
+        }
+
+        bool GitHub(string file)
+        {
+            string str = Clipboard.GetText();
+            //string str = "https://github.com/maijz128";
+            if (str != null)
+            {
+                if (str.Contains("github.com"))
+                {
+                    using (StreamWriter outfile = new StreamWriter(file))
+                    {
+                        outfile.Write(str);
+                    }
+                    RenameFile(file, "GitHub");
+                    return true;
+                }
+
+            }
+            return false;
+        }
+
+        void RenameFile(string file, string newFileName)
+        {
+            FileInfo fileInfo = new FileInfo(file);
+            string dirName = fileInfo.DirectoryName;
+            string extension = fileInfo.Extension;
+            string newFile = Path.Combine(dirName, newFileName + extension);
+            if (File.Exists(newFile))
+            {
+                // "文件夹中存在此名称文件，请更改文件名。"
+            }
+            else
+            {
+                fileInfo.MoveTo(newFile);
             }
         }
 
