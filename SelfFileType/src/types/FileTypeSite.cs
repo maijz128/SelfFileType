@@ -81,7 +81,7 @@ namespace SelfFileType.src.types
                 // 没有内容就打开编辑
                 if (!hasContent)
                 {
-                    if (!GitHub(file))
+                    if (GitHub(file) == false && WriteURL(file) == false)
                     {
                         EditFile(file);
                     }
@@ -126,6 +126,32 @@ namespace SelfFileType.src.types
             return false;
         }
 
+        bool WriteURL(string file)
+        {
+            string str = Clipboard.GetText();
+            if (!string.IsNullOrWhiteSpace(str))
+            {
+                if (IsUrl(str))
+                {
+                    using (StreamWriter outfile = new StreamWriter(file))
+                    {
+                        outfile.Write(str);
+                    }
+
+                    var name = str.Replace("\\", "/");
+                    name = name.Replace("http://", "");
+                    name = name.Replace("https://", "");
+                    name = name.Replace("www.", "");
+                    name = name.Split('/')[0];
+                    RenameFile(file, name);
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+
+
         void RenameFile(string file, string newFileName)
         {
             FileInfo fileInfo = new FileInfo(file);
@@ -154,5 +180,24 @@ namespace SelfFileType.src.types
             var result = Regex.Match(line, pattern);
             return result.Success;
         }
+
+        /// <summary>
+        /// 判断一个字符串是否为url
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static bool IsUrl(string str)
+        {
+            try
+            {
+                string Url = @"^http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?$";
+                return Regex.IsMatch(str, Url);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
     }
 }
