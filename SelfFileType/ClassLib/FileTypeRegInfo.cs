@@ -28,6 +28,9 @@ namespace SelfFileType.ClassLib
         /// </summary>    
         public string ExePath;
 
+        public bool ShellNew;
+        public string ShellNewTemplate;
+
         public FileTypeRegInfo()
         {
         }

@@ -77,6 +77,8 @@ namespace SelfFileType
                 fileTypeRegInfo.ExePath = Application.ExecutablePath;
                 fileTypeRegInfo.ExtendName = extname;
                 fileTypeRegInfo.IconPath = iconFolder + fileType.Icon();
+                fileTypeRegInfo.ShellNew = fileType.ShellNew();
+                fileTypeRegInfo.ShellNewTemplate = fileType.ShellNewTemplate();
 
                 // 注册  
                 FileTypeRegister.RegisterFileType(fileTypeRegInfo);

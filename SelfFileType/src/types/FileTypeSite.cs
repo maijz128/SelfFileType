@@ -16,14 +16,7 @@ namespace SelfFileType.src.types
         public string Description()
         {
             return @"
-*.site
-
-格式：文本
-
-内容：每一行都只能为URL
-
-运行：使用默认浏览器打开所有URL
-
+site, 使用默认浏览器打开所有URL (&E)
 ";
         }
 
@@ -199,5 +192,14 @@ namespace SelfFileType.src.types
             }
         }
 
+        public bool ShellNew()
+        {
+            return true;
+        }
+
+        public string ShellNewTemplate()
+        {
+            return "";
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,20 @@ namespace SelfFileType.ClassLib
             string relationName = regInfo.ExtendName.Substring(1,
                                                                regInfo.ExtendName.Length - 1).ToUpper() + "_FileType";
             fileTypeKey.SetValue("", relationName);
+            if (regInfo.ShellNew)
+            {
+                var shellNew = fileTypeKey.CreateSubKey("ShellNew");
+                //shellNew.SetValue("NullFile", "");
+                shellNew.SetValue("FileName", "Template" + regInfo.ExtendName);
+                shellNew.SetValue("ItemName", @"@%SystemRoot%\system32\notepad.exe,-470");
+
+                var cShellNew = @"C:\Windows\ShellNew\" + "Template" + regInfo.ExtendName;
+                File.Delete(cShellNew);
+                using (StreamWriter sw = File.CreateText(cShellNew))
+                {
+                    sw.Write(regInfo.ShellNewTemplate);
+                }
+            }
             fileTypeKey.Close();
 
             //HKEY_CLASSES_ROOT/OSF_FileType
@@ -55,7 +70,8 @@ namespace SelfFileType.ClassLib
         {
             //HKEY_CLASSES_ROOT/.osf
             //RegistryKey fileTypeKey = Registry.ClassesRoot.CreateSubKey(regInfo.ExtendName);
-            Registry.ClassesRoot.DeleteSubKey(extendName, false);
+            //Registry.ClassesRoot.DeleteSubKey(extendName, false);
+            Registry.ClassesRoot.DeleteSubKeyTree(extendName, false);
 
             string relationName = extendName.Substring(1, extendName.Length - 1).ToUpper() + "_FileType";
 
