@@ -11,93 +11,53 @@ using System.Windows.Forms;
 
 namespace SelfFileType.src.types
 {
-    class FileTypeSite : FileType
+    class FileTypeSite : FileTypeBaseSite
     {
-        public string Description()
+        public List<FileTypeBaseSite> SiteFileTypes { get; private set; }
+
+        public override string Description()
         {
             return @"
 site, 使用默认浏览器打开所有URL (&E)
 ";
         }
 
-        public string ExtensionName()
+        public override string ExtensionName()
         {
             return ".site";
         }
 
-        public string Icon()
+        public override string Icon()
         {
             return "browser.ico";
         }
 
-        public bool Matching(string file)
+        public override bool ShellNew()
         {
-            return Path.GetExtension(file) == ExtensionName();
+            return true;
         }
 
-        public string Run(string file)
+        public FileTypeSite()
         {
-            StringBuilder outputLog = new StringBuilder();
-            if (File.Exists(file))
-            {
-                bool hasContent = false;
-                string aLine;
-                StreamReader strReader = new StreamReader(file);
-                do
-                {
-                    aLine = strReader.ReadLine();
-                    if (!string.IsNullOrWhiteSpace(aLine))
-                    {
-                        Console.Out.WriteLine(aLine);
-                        hasContent = true;
-
-                        if (isSite(aLine))
-                        {
-                            //调用系统默认的浏览器   
-                            System.Diagnostics.Process.Start(aLine);
-                            outputLog.AppendLine("open " + aLine);
-                        }
-                        else if (isDiskPath(aLine))
-                        {
-                            System.Diagnostics.Process.Start(aLine);
-                        }
-                        else
-                        {
-                            string output;
-                            CmdHelper.RunCmd(aLine, out output);
-                            outputLog.AppendLine(output);
-                        }
-                    }
-                } while (aLine != null);
-                strReader.Close();
-
-                // 没有内容就打开编辑
-                if (!hasContent)
-                {
-                    if (GitHub(file) == false && WriteURL(file) == false)
-                    {
-                        EditFile(file);
-                    }
-                }
-            }
-            return outputLog.ToString();
+            this.SiteFileTypes = new List<FileTypeBaseSite>() {
+                new FileTypeArtstation(),
+                new FileTypeBangumi(),
+                new FileTypeBilibili(),
+                new FileTypeDeviantArt(),
+                new FileTypeDiscord(),
+                new FileTypeGitHub(),
+                new FileTypeGoogle(),
+                new FileTypePatreon(),
+                new FileTypePixiv(),
+                new FileTypePornhub(),
+                new FileTypeSankakucomplex(),
+                new FileTypeSmzdm(),
+                new FileTypeTwitter(),
+                new FileTypeYouTube(),
+                new FileTypeZhihu(),
+            };
         }
 
-
-        void EditFile(string file)
-        {
-            //var fileTypeRegInfo = FileTypeRegister.GetFileTypeRegInfo(".txt");
-            //if (fileTypeRegInfo != null)
-            //{
-            //    var exePath = fileTypeRegInfo.ExePath;
-            //    
-            //}
-            var process = Process.Start("notepad++.exe", "\"" + file + "\"");
-            if (process == null)
-            {
-                System.Diagnostics.Process.Start("NOTEPAD.EXE", "\"" + file + "\"");
-            }
-        }
 
         bool GitHub(string file)
         {
@@ -119,24 +79,41 @@ site, 使用默认浏览器打开所有URL (&E)
             return false;
         }
 
-        bool WriteURL(string file)
+        protected override bool WriteURL(string file)
         {
             string str = Clipboard.GetText();
             if (!string.IsNullOrWhiteSpace(str))
             {
-                if (IsUrl(str))
+                var url = str.Trim(); 
+                if (IsUrl(url))
                 {
                     using (StreamWriter outfile = new StreamWriter(file))
                     {
-                        outfile.Write(str);
+                        outfile.Write(url);
                     }
 
-                    var name = str.Replace("\\", "/");
-                    name = name.Replace("http://", "");
-                    name = name.Replace("https://", "");
-                    name = name.Replace("www.", "");
-                    name = name.Split('/')[0];
-                    RenameFile(file, name);
+                    string extension = null;
+                    string name = null;
+
+
+                    foreach (var item in this.SiteFileTypes)
+                    {
+                        if (item.MatchingURL(url))
+                        {
+                            name = item.GenerateFileName(url);
+                            extension = item.ExtensionName();
+                            break;
+                        }
+                    }
+
+
+                    if (name == null)
+                    {
+                        name = FormattingURL(url);
+                        name = name.Split('/')[0];
+                    }
+
+                    RenameFile(file, name, extension);
                     return true;
                 }
             }
@@ -145,61 +122,6 @@ site, 使用默认浏览器打开所有URL (&E)
         }
 
 
-        void RenameFile(string file, string newFileName)
-        {
-            FileInfo fileInfo = new FileInfo(file);
-            string dirName = fileInfo.DirectoryName;
-            string extension = fileInfo.Extension;
-            string newFile = Path.Combine(dirName, newFileName + extension);
-            if (File.Exists(newFile))
-            {
-                // "文件夹中存在此名称文件，请更改文件名。"
-            }
-            else
-            {
-                fileInfo.MoveTo(newFile);
-            }
-        }
 
-        bool isSite(string line)
-        {
-            string line_format = line.Trim().ToLower();
-            return line_format.StartsWith("http://") || line_format.StartsWith("https://");
-        }
-
-        bool isDiskPath(string line)
-        {
-            var pattern = @"[a-zA-Z]:(\\([0-9a-zA-Z]+))+|(\/([0-9a-zA-Z]+))+";
-            var result = Regex.Match(line, pattern);
-            return result.Success;
-        }
-
-        /// <summary>
-        /// 判断一个字符串是否为url
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static bool IsUrl(string str)
-        {
-            try
-            {
-                string Url = @"^http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?$";
-                return Regex.IsMatch(str, Url);
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-
-        public bool ShellNew()
-        {
-            return true;
-        }
-
-        public string ShellNewTemplate()
-        {
-            return "";
-        }
     }
 }

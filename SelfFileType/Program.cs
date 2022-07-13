@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,14 +24,28 @@ namespace SelfFileType
             {
                 Console.Out.WriteLine(args.Length);
 
-                var logFile = AppDomain.CurrentDomain.BaseDirectory + "/log.txt";
-                new ClassLib.LogUtil(logFile).WriteLine(args);
+                var logFileName = AppDomain.CurrentDomain.BaseDirectory + "/log.txt";
+                // var logFile = new ClassLib.LogUtil(logFileName);
+                var logWriter = new StreamWriter(logFileName);
+                logWriter.AutoFlush = true; 
+                Console.SetOut(logWriter);
+
+
+                Console.WriteLine(args);
 
                 var fileTypeManager = new SelfFileType.src.FileTypeManager();
-                foreach (var item in args)
+                try
                 {
-                    fileTypeManager.handle(item);
+                    foreach (var item in args)
+                    {
+                        fileTypeManager.handle(item);
+                    }
                 }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+
             }
             else
             {

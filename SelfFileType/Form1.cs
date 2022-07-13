@@ -28,6 +28,12 @@ namespace SelfFileType
 
             this.tabControl1.Controls.Clear();
 
+            ImageList myImages = new ImageList();
+            tabControl1.ImageList = myImages;
+
+            var iconFolder = System.AppDomain.CurrentDomain.BaseDirectory + @"\icon\";
+
+            int i = 0;
             foreach (var item in _FileTypeManager.FileTypes)
             {
 
@@ -37,10 +43,22 @@ namespace SelfFileType
                     Tag = item
                 };
 
+                string imageToLoad = iconFolder + item.Icon();
+                myImages.Images.Add(Image.FromFile(imageToLoad));
+
                 this.tabControl1.Controls.Add(tabPage);
+
+                tabPage.ImageIndex = i;
+                i++;
             }
 
+
             ShowDescription();
+
+
+            
+
+            
         }
 
 

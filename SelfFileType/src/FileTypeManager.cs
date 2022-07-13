@@ -30,19 +30,23 @@ namespace SelfFileType.src
 
         public void handle(string file)
         {
+
             foreach (var item in _FileTypes)
             {
                 if (item.Matching(file))
                 {
                     item.Run(file);
+                    break;
                 }
             }
         }
 
         void Init()
         {
-            _FileTypes.Add(new FileTypeSite());
 
+            var siteType = new FileTypeSite();
+            _FileTypes.Add(siteType);
+            _FileTypes.AddRange(siteType.SiteFileTypes);
         }
     }
 }
