@@ -64,6 +64,8 @@
     <Compile Include="src\types\FileTypePornhubTests.cs" />
     <Compile Include="src\types\FileTypeSankakucomplexTests.cs" />
     <Compile Include="src\types\FileTypeSmzdmTests.cs" />
+    <Compile Include="src\types\FileTypeSteamTests.cs" />
+    <Compile Include="src\types\FileTypeTaoBaoTests.cs" />
     <Compile Include="src\types\FileTypeYouTubeTests.cs" />
     <Compile Include="src\types\FileTypeZhihuTests.cs" />
   </ItemGroup>

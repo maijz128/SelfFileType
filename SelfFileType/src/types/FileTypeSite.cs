@@ -52,6 +52,8 @@ site, 使用默认浏览器打开所有URL (&E)
                 new FileTypePornhub(),
                 new FileTypeSankakucomplex(),
                 new FileTypeSmzdm(),
+                new FileTypeSteam(),
+                new FileTypeTaoBao(),
                 new FileTypeTwitter(),
                 new FileTypeYouTube(),
                 new FileTypeZhihu(),

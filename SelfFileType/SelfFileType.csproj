@@ -38,6 +38,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -63,6 +64,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\FileType.cs" />
     <Compile Include="src\FileTypeManager.cs" />
+    <Compile Include="src\types\FileTypeTaoBao.cs" />
+    <Compile Include="src\types\FileTypeSteam.cs" />
     <Compile Include="src\types\FileTypePornhub.cs" />
     <Compile Include="src\types\FileTypeSmzdm.cs" />
     <Compile Include="src\types\FileTypeZhihu.cs" />
@@ -156,6 +159,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icon\smzdm.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icon\steam.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icon\taobao.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icon\twitter.ico">
