@@ -39,6 +39,11 @@ site, 使用默认浏览器打开所有URL (&E)
 
         public FileTypeSite()
         {
+            InitSiteFileTypes();
+        }
+
+        public void InitSiteFileTypes()
+        {
             this.SiteFileTypes = new List<FileTypeBaseSite>() {
                 new FileTypeArtstation(),
                 new FileTypeBangumi(),
@@ -58,8 +63,11 @@ site, 使用默认浏览器打开所有URL (&E)
                 new FileTypeYouTube(),
                 new FileTypeZhihu(),
             };
-        }
 
+            var luaFts = FileTypeCustomLua.ReadAllLua();
+
+            this.SiteFileTypes.AddRange(luaFts);
+        }
 
         bool GitHub(string file)
         {

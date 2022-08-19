@@ -11,18 +11,18 @@ namespace SelfFileType.src
     {
         public int Count
         {
-            get { return _FileTypes.Count; }
+            get { return mFileTypes.Count; }
         }
 
-        public IEnumerable<FileType> FileTypes { get { return _FileTypes; } }
+        public IEnumerable<FileType> FileTypes { get { return mFileTypes; } }
 
 
-        List<FileType> _FileTypes;
+        List<FileType> mFileTypes;
 
 
         public FileTypeManager()
         {
-            _FileTypes = new List<FileType>();
+            mFileTypes = new List<FileType>();
 
             Init();
         }
@@ -31,7 +31,7 @@ namespace SelfFileType.src
         public void handle(string file)
         {
 
-            foreach (var item in _FileTypes)
+            foreach (var item in mFileTypes)
             {
                 if (item.Matching(file))
                 {
@@ -45,8 +45,8 @@ namespace SelfFileType.src
         {
 
             var siteType = new FileTypeSite();
-            _FileTypes.Add(siteType);
-            _FileTypes.AddRange(siteType.SiteFileTypes);
+            mFileTypes.Add(siteType);
+            mFileTypes.AddRange(siteType.SiteFileTypes);
         }
     }
 }

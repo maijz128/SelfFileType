@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SelfFileType.src.types
 {
-    interface FileType
+    public interface FileType
     {
         string ExtensionName();
 
