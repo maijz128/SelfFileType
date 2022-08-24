@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SelfFileType.src;
 
 namespace SelfFileType
 {
@@ -22,18 +23,9 @@ namespace SelfFileType
 
             if (args != null && args.Length > 0)
             {
-                Console.Out.WriteLine(args.Length);
+                Logger.Instance.WriteLine(args);
 
-                var logFileName = AppDomain.CurrentDomain.BaseDirectory + "/log.txt";
-                // var logFile = new ClassLib.LogUtil(logFileName);
-                var logWriter = new StreamWriter(logFileName);
-                logWriter.AutoFlush = true; 
-                Console.SetOut(logWriter);
-
-
-                Console.WriteLine(args);
-
-                var fileTypeManager = new SelfFileType.src.FileTypeManager();
+                var fileTypeManager = new FileTypeManager();
                 try
                 {
                     foreach (var item in args)
@@ -43,7 +35,7 @@ namespace SelfFileType
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.ToString());
+                    Logger.Instance.WriteLine(e.ToString());
                 }
 
             }

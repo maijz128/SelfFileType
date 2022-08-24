@@ -38,6 +38,9 @@
   <PropertyGroup>
     <StartupObject>SelfFileType.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Neo.Lua, Version=5.3.0.0, Culture=neutral, PublicKeyToken=fdb0cd4fe8a6e3b2, processorArchitecture=MSIL">
       <HintPath>packages\NeoLua.1.3.14\lib\net45\Neo.Lua.dll</HintPath>
@@ -68,10 +71,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\Config.cs" />
     <Compile Include="src\FileType.cs" />
     <Compile Include="src\FileTypeCustomLua.cs" />
     <Compile Include="src\FileTypeCustom.cs" />
     <Compile Include="src\FileTypeManager.cs" />
+    <Compile Include="src\Logger.cs" />
     <Compile Include="src\types\FileTypeTaoBao.cs" />
     <Compile Include="src\types\FileTypeSteam.cs" />
     <Compile Include="src\types\FileTypePornhub.cs" />
@@ -104,9 +109,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Content Include="custom\docker.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -122,81 +124,45 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="appdata\custom\acfun.lua" />
+    <None Include="appdata\custom\docker.lua" />
     <Content Include="file.ico" />
-    <Content Include="icon\acfun.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\artstation.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\bangumi.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\bilibili.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\browser.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\deviantart.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\discord.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\docker.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\f95zone.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\github.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\google.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\mega.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\patreon.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\pixiv.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\pornhub.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\reddit.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\sankakucomplex.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\smzdm.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\steam.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\taobao.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\twitter.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\youtube.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon\zhihu.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="appdata\icon\acfun.ico" />
+    <None Include="appdata\icon\artstation.ico" />
+    <None Include="appdata\icon\bangumi.ico" />
+    <None Include="appdata\icon\bilibili.ico" />
+    <None Include="appdata\icon\browser.ico" />
+    <None Include="appdata\icon\deviantart.ico" />
+    <None Include="appdata\icon\discord.ico" />
+    <None Include="appdata\icon\docker.ico" />
+    <None Include="appdata\icon\f95zone.ico" />
+    <None Include="appdata\icon\github.ico" />
+    <None Include="appdata\icon\google.ico" />
+    <None Include="appdata\icon\mega.ico" />
+    <None Include="appdata\icon\patreon.ico" />
+    <None Include="appdata\icon\pixiv.ico" />
+    <None Include="appdata\icon\pornhub.ico" />
+    <None Include="appdata\icon\reddit.ico" />
+    <None Include="appdata\icon\sankakucomplex.ico" />
+    <None Include="appdata\icon\smzdm.ico" />
+    <None Include="appdata\icon\steam.ico" />
+    <None Include="appdata\icon\taobao.ico" />
+    <None Include="appdata\icon\twitter.ico" />
+    <None Include="appdata\icon\youtube.ico" />
+    <None Include="appdata\icon\zhihu.ico" />
     <None Include="Resources\icon_not_found_2.png" />
     <None Include="Resources\icon_not_found.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(SolutionDir)appdata/custom" "$(TargetDir)custom" /e /S /Y /i
+xcopy "$(SolutionDir)appdata/icon" "$(TargetDir)icon" /e /S /Y /i</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

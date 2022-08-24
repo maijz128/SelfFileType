@@ -14,6 +14,8 @@ namespace SelfFileType.src
         public string CustomIcon { get; set; }
         public List<string> CustomUrls { get; set; }
 
+        public Func<string, string> CustomFileName { get; set; }
+
         public override string Description()
         {
             return CustomDescription;
@@ -45,7 +47,7 @@ namespace SelfFileType.src
         public override string GenerateFileName(string url)
         {
             string name = base.GenerateFileName(url);
-            
+            if (CustomFileName != null) name = CustomFileName?.Invoke(url);
             return name;
         }
     }

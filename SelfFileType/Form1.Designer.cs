@@ -36,8 +36,8 @@
             this.buttonUnregister = new System.Windows.Forms.Button();
             this.buttonRegister = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.richTextBox_Desc = new System.Windows.Forms.RichTextBox();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -52,7 +52,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(681, 97);
+            this.groupBox1.Size = new System.Drawing.Size(791, 97);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "操作";
@@ -70,7 +70,7 @@
             // 
             // buttonRegister
             // 
-            this.buttonRegister.Location = new System.Drawing.Point(412, 30);
+            this.buttonRegister.Location = new System.Drawing.Point(512, 30);
             this.buttonRegister.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonRegister.Name = "buttonRegister";
             this.buttonRegister.Size = new System.Drawing.Size(227, 55);
@@ -89,8 +89,19 @@
             this.panel1.Location = new System.Drawing.Point(4, 7);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(681, 592);
+            this.panel1.Size = new System.Drawing.Size(791, 592);
             this.panel1.TabIndex = 3;
+            // 
+            // richTextBox_Desc
+            // 
+            this.richTextBox_Desc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBox_Desc.Location = new System.Drawing.Point(7, 496);
+            this.richTextBox_Desc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.richTextBox_Desc.Name = "richTextBox_Desc";
+            this.richTextBox_Desc.Size = new System.Drawing.Size(777, 92);
+            this.richTextBox_Desc.TabIndex = 5;
+            this.richTextBox_Desc.Text = "";
             // 
             // listView1
             // 
@@ -109,26 +120,15 @@
             this.listView1.Location = new System.Drawing.Point(7, 4);
             this.listView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(667, 436);
+            this.listView1.Size = new System.Drawing.Size(777, 484);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
-            // richTextBox_Desc
-            // 
-            this.richTextBox_Desc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox_Desc.Location = new System.Drawing.Point(7, 449);
-            this.richTextBox_Desc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.richTextBox_Desc.Name = "richTextBox_Desc";
-            this.richTextBox_Desc.Size = new System.Drawing.Size(667, 139);
-            this.richTextBox_Desc.TabIndex = 5;
-            this.richTextBox_Desc.Text = "";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(690, 715);
+            this.ClientSize = new System.Drawing.Size(800, 715);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));

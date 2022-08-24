@@ -39,6 +39,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\SelfFileType\packages\MSTest.TestFramework.2.1.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -58,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\FileTypeCustomLuaTests.cs" />
+    <Compile Include="src\FileTypeCustomTests.cs" />
     <Compile Include="src\types\FileTypeArtstationTests.cs" />
     <Compile Include="src\types\FileTypeBilibiliTests.cs" />
     <Compile Include="src\types\FileTypeDeviantArtTests.cs" />

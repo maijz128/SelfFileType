@@ -35,10 +35,8 @@ namespace SelfFileType.src
         {
             var fts = new List<FileTypeBaseSite>();
 
-            var appFolder = System.AppDomain.CurrentDomain.BaseDirectory;
-            var luaFolder = "custom";
-            string docPath = Path.Combine(appFolder, luaFolder);
-            var files = from file in Directory.EnumerateFiles(docPath, "*.lua", SearchOption.AllDirectories)
+            var luaFolder = Config.Instance.GetCustomFolder();
+            var files = from file in Directory.EnumerateFiles(luaFolder, "*.lua", SearchOption.AllDirectories)
                         select File.ReadAllText(file);
 
             using (Lua lua = new Lua())
@@ -73,6 +71,13 @@ namespace SelfFileType.src
             ftc.CustomExtensionName = env.ExtensionName();
             ftc.CustomIcon = env.Icon();
             ftc.CustomUrls = ResultStringArray(env.Urls());
+            if (env.FileName != null)
+            {
+                ftc.CustomFileName = (url) =>
+                {
+                    return env.FileName(url);
+                };
+            }
 
             return ftc;
         }
@@ -91,5 +96,23 @@ namespace SelfFileType.src
             return strs;
         }
 
+        public static dynamic BuildLuaEnv(string luaStr)
+        {
+            Lua lua = new Lua();
+            dynamic env = lua.CreateEnvironment(); // Create a environment
+            env.dochunk(luaStr, "test.lua"); // Create a variable in Lua
+            return env;
+        }
+
+        public static bool TestLua(string luaStr)
+        {
+            using (Lua lua = new Lua())
+            {
+                dynamic env = lua.CreateEnvironment(); // Create a environment
+                env.dochunk(luaStr, "test.lua"); // Create a variable in Lua
+                return env.Icon != null;
+            }
+            return false;
+        }
     }
 }

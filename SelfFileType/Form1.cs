@@ -159,9 +159,8 @@ namespace SelfFileType
 
         Image LoadIcon(FileType fileType)
         {
-            var appFolder = System.AppDomain.CurrentDomain.BaseDirectory;
-            var iconFolder = "icon";
-            string icon = Path.Combine(appFolder, iconFolder, fileType.Icon());
+            var iconFolder = Config.Instance.GetIconFolder();
+            string icon = Path.Combine(iconFolder, fileType.Icon());
             if (File.Exists(icon))
             {
                 return Image.FromFile(icon);
