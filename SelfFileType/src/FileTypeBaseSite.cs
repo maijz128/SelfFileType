@@ -150,6 +150,26 @@ site, 使用默认浏览器打开所有URL (&E)
             return false;
         }
 
+        protected virtual bool Write(string file)
+        {
+            string str = Clipboard.GetText();
+            if (!string.IsNullOrWhiteSpace(str))
+            {
+                var url = str.Trim();
+                using (StreamWriter outfile = new StreamWriter(file))
+                {
+                    outfile.Write(url);
+                }
+
+                var name = GenerateFileName(url);
+                RenameFile(file, name);
+                return true;
+            }
+
+            return false;
+        }
+
+
         protected void RenameFile(string file, string newFileName, string extension = null)
         {
             FileInfo fileInfo = new FileInfo(file);
@@ -170,6 +190,7 @@ site, 使用默认浏览器打开所有URL (&E)
             }
 
             Console.WriteLine("Rename File: " + newFile);
+            Logger.Instance.WriteLine("Rename File: " + newFile);
             fileInfo.MoveTo(newFile);
         }
 

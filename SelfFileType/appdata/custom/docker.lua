@@ -13,22 +13,22 @@ function FileName(url)
     local name = "docker";
     local urlEx = url .. "/";
     local start1 = string.find(urlEx, "/_/");
-    if start1 ~= nail then
+    if start1 ~= nil then
         name = string.match(urlEx, "/_/(.-)/");
         name = name .. '.Image';
     end
     local start2 = string.find(urlEx, "/r/");
-    if start2 ~= nail then
+    if start2 ~= nil then
         name = string.match(urlEx, "/r/.+/(.-)/");
         name = name .. '.Image';
     end
     local start3 = string.find(urlEx, "/u/");
-    if start3 ~= nail then
+    if start3 ~= nil then
         name = string.match(urlEx, "/u/(.-)/");
         name = name .. '.User';
     end
     local startT = string.find(urlEx, "forums.docker.com/t/");
-    if startT ~= nail then
+    if startT ~= nil then
         name = string.match(urlEx, "forums.docker.com/t/(.-)/");
         name = name .. '.Forums';
     end

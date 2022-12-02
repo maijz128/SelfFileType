@@ -14,12 +14,12 @@ function FileName(url)
     url = url .. "/";
     local start = '';
     start = string.find( url, "&act=threadview&tid=" );
-    if start ~= nail then
+    if start ~= nil then
         name = string.match(url, "&act=threadview&tid=(.-)/");
         name = name .. '.article';
     end
     start = string.find( url, "action=search" );
-    if start ~= nail then
+    if start ~= nil then
         local urlex = string.gsub(url, '&submit=', 'submit=');
         name = string.match(urlex, "action=search.+keywords=(.-)submit=");
         name = name .. '.search';

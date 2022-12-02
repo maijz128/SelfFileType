@@ -13,12 +13,12 @@ function FileName(url)
     local name = "jable";
     url = url .. "/";
     local vstart, vend = string.find( url, "/videos/");
-    if vstart ~= nail then
+    if vstart ~= nil then
         name = string.match(url, "/videos/(.-)/");
         name = name .. '.video';
     end
     local mstart, mend = string.find( url, "/models/" );
-    if mstart ~= nail then
+    if mstart ~= nil then
         name = string.match(url, "/models/(.-)/");
         name = name .. '.model';
     end

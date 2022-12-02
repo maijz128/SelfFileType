@@ -13,27 +13,27 @@ function FileName(url)
     local name = "acfun";
     url = url .. "/";
     local start = string.find( url, "/v/");
-    if start ~= nail then
+    if start ~= nil then
         name = string.match(url, "/v/(.-)/");
         name = name .. '.video';
     end
     start = string.find( url, "/a/" );
-    if start ~= nail then
+    if start ~= nil then
         name = string.match(url, "/a/(.-)/");
         name = name .. '.article';
     end
     start = string.find( url, "/u/" );
-    if start ~= nail then
+    if start ~= nil then
         name = string.match(url, "/u/(.-)/");
         name = name .. '.user';
     end
     start = string.find( url, "/live/" );
-    if start ~= nail then
+    if start ~= nil then
         name = string.match(url, "/live/(.-)/");
         name = name .. '.live';
     end
     start = string.find( url, "/search/" );
-    if start ~= nail then
+    if start ~= nil then
         name = string.match(url, "/search/.+keyword=(.+)/");
         name = name .. '.search';
     end

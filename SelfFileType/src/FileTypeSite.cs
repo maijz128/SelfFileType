@@ -94,28 +94,28 @@ site, 使用默认浏览器打开所有URL (&E)
             string str = Clipboard.GetText();
             if (!string.IsNullOrWhiteSpace(str))
             {
-                var url = str.Trim(); 
-                if (IsUrl(url))
+                var url = str.Trim();
+                string extension = null;
+                string name = null;
+                bool matching = false;
+
+                foreach (var item in this.SiteFileTypes)
+                {
+                    if (item.MatchingURL(url))
+                    {
+                        name = item.GenerateFileName(url);
+                        extension = item.ExtensionName();
+                        matching = true;
+                        break;
+                    }
+                }
+
+                if (matching || IsUrl(url))
                 {
                     using (StreamWriter outfile = new StreamWriter(file))
                     {
                         outfile.Write(url);
                     }
-
-                    string extension = null;
-                    string name = null;
-
-
-                    foreach (var item in this.SiteFileTypes)
-                    {
-                        if (item.MatchingURL(url))
-                        {
-                            name = item.GenerateFileName(url);
-                            extension = item.ExtensionName();
-                            break;
-                        }
-                    }
-
 
                     if (name == null)
                     {
