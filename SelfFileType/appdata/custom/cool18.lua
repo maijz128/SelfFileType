@@ -20,15 +20,16 @@ function FileName(url)
     end
     start = string.find( url, "action=search" );
     if start ~= nil then
-        local urlex = string.gsub(url, '&submit=', 'submit=');
-        name = string.match(urlex, "action=search.+keywords=(.-)submit=");
-        name = name .. '.search';
+        -- local urlex = string.gsub(url, '&submit=', 'submit=');
+        -- name = string.match(urlex, "action=search.+keywords=(.-)submit=");
+        -- name = name .. '.search';
+        name = 'search';
     end
     return name;
 end
 
 
-local url_article = 'https://www.cool18.com/bbs4/index.php?app=forum&act=threadview&tid=29769';
-local url_search = 'https://www.cool18.com/bbs4/index.php?action=search&bbsdr=life6&act=threadsearch&app=forum&keywords=%E6%AF%8D&submit=%E6%9F%A5%E8%AF%A2';
-print(FileName(url_article))
-print(FileName(url_search))
+-- local url_article = 'https://www.cool18.com/bbs4/index.php?app=forum&act=threadview&tid=29769';
+-- local url_search = 'https://www.cool18.com/bbs4/index.php?action=search&bbsdr=life6&act=threadsearch&app=forum&keywords=%E6%AF%8D&submit=%E6%9F%A5%E8%AF%A2';
+-- print(FileName(url_article))
+-- print(FileName(url_search))

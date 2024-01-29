@@ -44,7 +44,12 @@ patreon, Patreon是一個供內容建立者進行群眾募資的平台。它讓�
                 if (url.Contains("/posts/"))
                 {
                     name = url.Split('/')[2];
-                }else if (url.Contains("/"))
+                }
+                else if (url.Contains("/user?u="))
+                {
+                    name = url.Split('=')[1];
+                }
+                else if (url.Contains("/"))
                 {
                     name = url.Split('/')[1];
                 }

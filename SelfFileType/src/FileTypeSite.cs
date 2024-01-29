@@ -52,7 +52,6 @@ site, 使用默认浏览器打开所有URL (&E)
                 new FileTypeDiscord(),
                 new FileTypeGitHub(),
                 new FileTypeGoogle(),
-                new FileTypePatreon(),
                 new FileTypePixiv(),
                 new FileTypePornhub(),
                 new FileTypeSankakucomplex(),
