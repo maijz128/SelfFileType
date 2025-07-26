@@ -1,17 +1,18 @@
 function Description()
     return
-        'JavDB 成人影片資料庫及磁鏈分享';
+        'Nexus Mods is the largest modding site and community on the internet. ';
 end
 
-function ExtensionName() return '.javdb'; end
+function ExtensionName() return '.nexusmods'; end
 
-function Icon() return 'javdb.ico'; end
+function Icon() return 'nexusmods.ico'; end
 
-function Urls() return {'javdb.com'}; end
+function Urls() return {'nexusmods.com'}; end
 
 function FileName(url)
-    local name = "JavDB";
-    name = url:gsub("https://javdb.com/", "");
+    local name = "Nexus Mods";
+    name = url:gsub("https://nexusmods.com/", "");
+    name = url:gsub("https://www.nexusmods.com/", "");
     name = name:gsub("/", ".");
     name = name:gsub("?", "#");
     return name;
@@ -21,8 +22,8 @@ end
 
 
 function FileName2(url)
-    local defaultHost = "javdb.com";
-    local defaultName = "JavDB";
+    local defaultHost = "nexusmods.com";
+    local defaultName = "Nexus Mods";
     local name = defaultName;
     url = string.gsub(url, "https://", "");
     url = string.gsub(url, "http://", "");
@@ -30,12 +31,6 @@ function FileName2(url)
     url = string.gsub(url, "//", "/");
 
     local start = '';
-    start = string.find( url, "/(.+)/" );
-    if start ~= nil then
-        name = string.match(url, "/(.+)/");
-        -- name = name .. '.user';
-        name = string.gsub(name, "/.", ".");
-    end
     start = string.find( url, "/v/" );
     if start ~= nil then
         name = string.match(url, "/v/(.+)");
@@ -44,13 +39,6 @@ function FileName2(url)
         name = string.gsub(name, "/.", ".");
     end
 
-    start = string.find( url, "/publishers/" );
-    if start ~= nil then
-        name = string.match(url, "/publishers/(.+)");
-        name = urlDecode(name);
-        name = 'publishers.' .. name;
-        name = string.gsub(name, "/.", ".");
-    end
 
     if name == defaultName then
         name = url;
@@ -69,10 +57,8 @@ function urlDecode(s)
 end  
 
 
--- local url1 = 'https://javdb.com/v/YwykB';
--- local url2 = 'https://javdb.com/publishers/45NZ?f=download';
--- local url3 = 'https://x.com/hashtag/nsfw?src=hashtag_click';
--- print(FileName(url1))
--- print(FileName(url2))
--- print(FileName(url3))
+-- local url1 = 'https://www.nexusmods.com/';
+-- local url2 = 'https://www.nexusmods.com/residentevil32020/mods/883';
+-- print(FileName2(url1))
+-- print(FileName2(url2))
 

@@ -1,28 +1,17 @@
 function Description()
     return
-        'JavDB 成人影片資料庫及磁鏈分享';
+        'Twitter X 從突發新聞到娛樂、體育和政治新聞，一手掌握完整消息和所有實況報導。';
 end
 
-function ExtensionName() return '.javdb'; end
+function ExtensionName() return '.twitter-x'; end
 
-function Icon() return 'javdb.ico'; end
+function Icon() return 'twitter-x.ico'; end
 
-function Urls() return {'javdb.com'}; end
+function Urls() return {'x.com'}; end
 
 function FileName(url)
-    local name = "JavDB";
-    name = url:gsub("https://javdb.com/", "");
-    name = name:gsub("/", ".");
-    name = name:gsub("?", "#");
-    return name;
-end
-
-
-
-
-function FileName2(url)
-    local defaultHost = "javdb.com";
-    local defaultName = "JavDB";
+    local defaultHost = "x.com";
+    local defaultName = "Twitter-X";
     local name = defaultName;
     url = string.gsub(url, "https://", "");
     url = string.gsub(url, "http://", "");
@@ -36,19 +25,19 @@ function FileName2(url)
         -- name = name .. '.user';
         name = string.gsub(name, "/.", ".");
     end
-    start = string.find( url, "/v/" );
+    start = string.find( url, "/status/" );
     if start ~= nil then
-        name = string.match(url, "/v/(.+)");
+        name = string.match(url, "/status/(.+)");
         name = urlDecode(name);
-        name = 'v.' .. name;
+        name = name .. '.status';
         name = string.gsub(name, "/.", ".");
     end
 
-    start = string.find( url, "/publishers/" );
+    start = string.find( url, "/hashtag/" );
     if start ~= nil then
-        name = string.match(url, "/publishers/(.+)");
+        name = string.match(url, "/hashtag/(.+)");
         name = urlDecode(name);
-        name = 'publishers.' .. name;
+        name = name .. '.hashtag';
         name = string.gsub(name, "/.", ".");
     end
 
@@ -69,10 +58,9 @@ function urlDecode(s)
 end  
 
 
--- local url1 = 'https://javdb.com/v/YwykB';
--- local url2 = 'https://javdb.com/publishers/45NZ?f=download';
+-- local url1 = 'https://x.com/mujitax';
+-- local url2 = 'https://x.com/MujitaX/status/1789309492414329198';
 -- local url3 = 'https://x.com/hashtag/nsfw?src=hashtag_click';
 -- print(FileName(url1))
 -- print(FileName(url2))
 -- print(FileName(url3))
-
